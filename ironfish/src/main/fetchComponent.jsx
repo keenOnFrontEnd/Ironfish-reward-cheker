@@ -1,48 +1,33 @@
 import React, { useState } from "react";
 
 
-const FetchUserPointsForTestNet = (id,func1) => {
+const FetchUserPointsForTestNet = async (id,func1) => {
 
     // const [userMetricsError, setUserMetricsError] = useState()
     const fetchlink = `https://cors-anywhere.herokuapp.com/https://api.ironfish.network/users/${id}/metrics?granularity=lifetime`
-
-    async function fetchingData () {
         try {
-            fetch(fetchlink).then(responce => responce.json()).then(data => {
-                func1(data) 
-                console.log(data)})
+            await fetch(fetchlink).then(responce => responce.json()).then(data => func1(data))
         }
         catch (error) {
             // setUserMetricsError(error)
             // console.log(userMetricsError)        
         }
-    }
-    
-    fetchingData()
-    return 0
   };
 
-export const FetchUserData = (graffiti,userStateUpdate,userPointsStateUpdate,setIsLoading) => {
+export const FetchUserData = async (graffiti,userStateUpdate,userPointsStateUpdate,setIsLoading) => {
     
 // const [user, setUser] = useState()
  const fetchlink = `https://cors-anywhere.herokuapp.com/https://api.ironfish.network/users/find?graffiti=${graffiti}&with_rank=true`
-
- async function fetchData () {
      try {
-         fetch(fetchlink).then(responce => responce.json()).then(data => {
+         await fetch(fetchlink).then(responce => responce.json()).then((data) => {
              userStateUpdate(data)
              FetchUserPointsForTestNet(data.id,userPointsStateUpdate)
-            }).then(() => setIsLoading(false))
+            }).then(()=> setTimeout(()=>{setIsLoading(false)}, 3000))
      }
      catch (error) {
         //  setUserStateError(error)
         //  console.log(userStateError)
      }
- }
-
- fetchData()
-
- return 0
 };
 
 

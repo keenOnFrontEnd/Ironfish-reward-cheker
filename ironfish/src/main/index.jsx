@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import axios from "axios";
 import { FetchUserData, server_metric, test_state } from "./fetchComponent";
 import CustomUserComponent from "./customUserComponent";
@@ -6,9 +6,9 @@ import CustomUserComponent from "./customUserComponent";
 const IndexComponent = () => {
 
 
-  const [isLoading, setIsLoading] = useState();
-  const [userState, setUserState] = useState();
-  const [userMetrics,setUserMetrics] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const [userState, setUserState] = useState([]);
+  const [userMetrics,setUserMetrics] = useState([]);
   const [userMoniker, setUserMoniker] = useState()
 
   // async function fetchData() {
@@ -23,21 +23,17 @@ const IndexComponent = () => {
   //   }
   // }
 
-  const search = () => {
-    FetchUserData(userMoniker,setUserState,setUserMetrics,setIsLoading)
+  const search = async () => {
+    FetchUserData(userMoniker, setUserState, setUserMetrics, setIsLoading)
   }
-
+  console.log(isLoading)
   console.log(userState)
   console.log(userMetrics)
-  console.log(isLoading)
-
-  // console.log(searchData)
 
   return <div>
     <input placeholder="put your graffiti here" onChange={(e) => setUserMoniker(e.target.value)} />
     <button onClick={() => search()}>Find</button>
-
-    <CustomUserComponent data={test_state} server_metrics={server_metric}/>
+  {isLoading === false ? (<CustomUserComponent userMetrics={userMetrics} server_metrics={server_metric}/>) : (<></>)}
   </div>;
 };
 
