@@ -1,15 +1,15 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { FetchUserData, server_metric, test_state } from "./fetchComponent";
 import CustomUserComponent from "./customUserComponent";
+import styles from "../css/main.css";
+import LogoComponent from "./logo";
 
 const IndexComponent = () => {
-
-
   const [isLoading, setIsLoading] = useState(true);
   const [userState, setUserState] = useState([]);
-  const [userMetrics,setUserMetrics] = useState([]);
-  const [userMoniker, setUserMoniker] = useState()
+  const [userMetrics, setUserMetrics] = useState([]);
+  const [userMoniker, setUserMoniker] = useState();
 
   // async function fetchData() {
   //   try {
@@ -23,18 +23,38 @@ const IndexComponent = () => {
   //   }
   // }
 
-  const search = async () => {
-    FetchUserData(userMoniker, setUserState, setUserMetrics, setIsLoading)
-  }
-  console.log(isLoading)
-  console.log(userState)
-  console.log(userMetrics)
+  const search = () => {
+    FetchUserData(userMoniker, setUserState, setUserMetrics, setIsLoading);
+  };
 
-  return <div>
-    <input placeholder="put your graffiti here" onChange={(e) => setUserMoniker(e.target.value)} />
-    <button onClick={() => search()}>Find</button>
-  {isLoading === false ? (<CustomUserComponent userMetrics={userMetrics} server_metrics={server_metric}/>) : (<></>)}
-  </div>;
+  console.log(isLoading);
+  console.log(userState);
+  console.log(userMetrics);
+
+  return (
+    <div className="container">
+      <div className="mainText">IronFish Rewards Checker</div>
+
+      <div className="searchContainer">
+        <input
+          placeholder="To calculate rewards, put graffiti here"
+          onChange={(e) => setUserMoniker(e.target.value)}
+          type="search"
+        />
+        <button onClick={() => search()}>Search</button>
+      </div>
+
+      {isLoading === false ? (
+        <CustomUserComponent
+          userMetrics={userMetrics}
+          server_metrics={server_metric}
+          moniker={userMoniker}
+        />
+      ) : (
+        <LogoComponent className={isLoading === true ? ('') : ('logoFadeOut')} />
+      )}
+    </div>
+  );
 };
 
 export default IndexComponent;
