@@ -10,22 +10,28 @@ const IndexComponent = () => {
   const [userState, setUserState] = useState([]);
   const [userMetrics, setUserMetrics] = useState([]);
   const [userMoniker, setUserMoniker] = useState();
+  const [userMonikerUploaded,setUserMonikerUploaded] = useState();
+  const isMobile = window.matchMedia("only screen and (max-width: 1026px)").matches;
 
-  // async function fetchData() {
-  //   try {
-  //     await fetch(
-  //       `https://cors-anywhere.herokuapp.com/https://api.ironfish.network/users?order_by=rank&limit=100`
-  //     )
-  //       .then((responce) => responce.json())
-  //       .then((data) => setUserState(data));
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
+
+
 
   const search = () => {
     FetchUserData(userMoniker, setUserState, setUserMetrics, setIsLoading);
+    setUserMonikerUploaded(userMoniker)
   };
+
+  useEffect(() => {
+    if(userMetrics.user_id || userMetrics.error) {
+      setIsLoading(false)
+    }
+  },[userMetrics])
+
+if(isMobile) {
+  return <div className="desctopSupport">
+    Currently, we support only desktop website version.
+  </div>
+}
 
   console.log(isLoading);
   console.log(userState);
@@ -48,7 +54,7 @@ const IndexComponent = () => {
         <CustomUserComponent
           userMetrics={userMetrics}
           server_metrics={server_metric}
-          moniker={userMoniker}
+          moniker={userMonikerUploaded}
         />
       ) : (
         <LogoComponent className={isLoading === true ? ('') : ('logoFadeOut')} />

@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
 const CustomUserComponent = (props) => {
+
     console.log(props)
     const pp1 = 210000;
     const pp2 = 105000;
     
     const [moniker, setMoniker] = useState(props.moniker)
+    useEffect(() => {
+        if(props.moniker) {
+            setMoniker(props.moniker)
+        }
+    },[props.moniker])
+
+    if(props.userMetrics.error) {
+        return <div className="userContainer">
+            Searching failed <br/><br/><br/><br/>
+            Check Your Moniker
+        </div>
+    }
 
       const rank = props.userMetrics.pools.main.rank;
       const total_points = props.userMetrics.pools.main.points;
@@ -25,8 +38,9 @@ const CustomUserComponent = (props) => {
 
       const user_total_reward = Math.round(node_uptime_reward + bugs_caught_reward + transactions_reward + pull_request_reward)
 
+
       return <div className="userContainer">
-          <div className="userHeader">Your total testnet reward, <b>{moniker}</b>:</div>
+          <div className="userHeader">Your total testnet reward, <b>{moniker}</b> :</div>
           <div className="rewardContainer"> {user_total_reward} $IRON</div>
           <div className="rewardDetails">
               <span>Hosting Node: <div>{node_uptime_reward} $IRON</div></span>
