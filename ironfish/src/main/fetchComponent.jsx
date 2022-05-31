@@ -93,6 +93,6 @@ export const test_user_state = {
 };
 
 export const server_metric = {
-    "pp1_total_points": 3000000,
+    "pp1_total_points": 300000,
     "pp2_total_points": 0
 }
