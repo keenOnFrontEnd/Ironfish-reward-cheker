@@ -1,4 +1,5 @@
 * {
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
 
@@ -9,15 +10,30 @@ body {
 .container {
     width: 1080px;
     margin: 0 auto;
+    display: -webkit-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
 .mainText {
     width: 90%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     height: 100px;
     text-align: center;
@@ -27,19 +43,27 @@ body {
     margin-top: 20px;
     margin-bottom: 40px;
 }
+
 .searchContainer {
     width: 47%;
     height: 67px;
     background-color: #D9D9D9;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     border-radius: 5px;
     padding: 8px;
     margin-bottom: 30px;
 }
 
-.searchContainer > input {
+.searchContainer>input {
     width: 80%;
     height: 50px;
     outline: none;
@@ -48,7 +72,8 @@ body {
     border-radius: 1px;
     padding-left: 10px;
 }
-.searchContainer > button {
+
+.searchContainer>button {
     background-color: #D9D9D9;
     border: 1px solid #23C533;
     border-radius: 10px;
@@ -63,18 +88,31 @@ body {
     width: 65%;
     background-color: white;
     border-radius: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-animation: fadeIn 1.5s;
     animation: fadeIn 1.5s;
 }
+
 .userHeader {
     width: 90%;
     text-align: center;
     font-size: 30px;
     padding-top: 15px;
 }
+
 .rewardContainer {
     width: 50%;
     font-size: 60px;
@@ -84,22 +122,37 @@ body {
 }
 
 .rewardDetails {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     min-height: 170px;
     height: 250px;
     width: 80%;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
     padding-bottom: 30px;
 }
-.rewardDetails > span {
+
+.rewardDetails>span {
     background-color: #D9D9D9;
     border-radius: 5px;
     padding: 3px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
 }
-.rewardDetails > span > div {
+
+.rewardDetails>span>div {
     margin-right: 10px;
     text-align: center;
 }
@@ -111,24 +164,87 @@ body {
     padding-top: 50px;
     text-align: center;
 }
-.logo > span {
+
+.logo>span {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
     width: 100%;
     padding-bottom: 10px;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
     justify-content: space-evenly;
     font-size: 30px;
+    -webkit-animation: fadeOut 1.5s;
+    animation: fadeOut 1.5s;
 }
-.logo > span > a {
+
+.logo>span>a {
     margin-right: 30px;
 }
+
 .logoFadeOut {
+    -webkit-animation: fadeOut 1s;
     animation: fadeOut 1s;
 }
-@keyframes fadeIn {
-    from { opacity: 0; }
-      to { opacity: 1; }
+
+.errorClass {
+    border: 1px double red;
+    min-height: 300px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
 }
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeOut {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 @keyframes fadeOut {
-    from { opacity: 0; }
-      to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }

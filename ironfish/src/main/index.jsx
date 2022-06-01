@@ -1,41 +1,36 @@
-import React, {  useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { FetchUserData, test_state } from "./fetchComponent";
 import CustomUserComponent from "./customUserComponent";
 import LogoComponent from "./logo";
 const IndexComponent = () => {
-
-
   const [isLoading, setIsLoading] = useState(true);
   const [userState, setUserState] = useState([]);
   const [userMetrics, setUserMetrics] = useState([]);
   const [userMoniker, setUserMoniker] = useState();
-  const [userMonikerUploaded,setUserMonikerUploaded] = useState();
-  const isMobile = window.matchMedia("only screen and (max-width: 1026px)").matches;
-
-
-
+  const [userMonikerUploaded, setUserMonikerUploaded] = useState();
+  const isMobile = window.matchMedia(
+    "only screen and (max-width: 1026px)"
+  ).matches;
+  const [isSearching, setIsSearching] = useState(false);
 
   const search = () => {
-    FetchUserData(userMoniker, setUserState, setUserMetrics, setIsLoading);
-    setUserMonikerUploaded(userMoniker)
+    FetchUserData(userMoniker, setUserState, setUserMetrics, setIsSearching);
+    setUserMonikerUploaded(userMoniker);
   };
 
   useEffect(() => {
-    if(userMetrics.user_id || userMetrics.error) {
-      setIsLoading(false)
+    if (userMetrics.user_id || userMetrics.error) {
+      setIsLoading(false);
     }
-  },[userMetrics])
+  }, [userMetrics]);
 
-if(isMobile) {
-  return <div className="desctopSupport">
-    Currently, we support only desktop website version.
-  </div>
-}
-
-  console.log(isLoading);
-  console.log(userState);
-  console.log(userMetrics);
+  if (isMobile) {
+    return (
+      <div className="desctopSupport">
+        Currently, we support only desktop website version.
+      </div>
+    );
+  }
 
   return (
     <div className="container">
@@ -50,14 +45,12 @@ if(isMobile) {
         <button onClick={() => search()}>Search</button>
       </div>
 
-      {isLoading === false ? (
-        <CustomUserComponent
-          userMetrics={userMetrics}
-          moniker={userMonikerUploaded}
-        />
-      ) : (
-        <LogoComponent className={isLoading === true ? ('') : ('logoFadeOut')} />
-      )}
+      <CustomUserComponent
+        userMetrics={userMetrics}
+        moniker={userMonikerUploaded}
+        isLoading={isLoading}
+        isSearching={isSearching}
+      />
     </div>
   );
 };

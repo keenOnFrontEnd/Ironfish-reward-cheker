@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import data from '../data.json';
+import LogoComponent from "./logo";
 
 const CustomUserComponent = (props) => {
-
-    console.log(props)
+    
     const pp1 = 210000;
     
     const [moniker, setMoniker] = useState(props.moniker)
+
     useEffect(() => {
         if(props.moniker) {
             setMoniker(props.moniker)
@@ -14,13 +15,29 @@ const CustomUserComponent = (props) => {
     },[props.moniker])
 
     if(props.userMetrics.error) {
-        return <div className="userContainer">
-            Searching failed <br/><br/><br/><br/>
+        return <div className="userContainer errorClass">
+           Searching failed <br />
             Check Your Moniker
         </div>
     }
 
-      const rank = props.userMetrics.pools.main.rank;
+    if (props.isLoading) {
+        return <LogoComponent className={props.isLoading === true ? ('') : ('logoFadeOut')} />
+    }
+
+    if(props.isSearching) {
+        return <div className="userContainer">
+        <div className="userHeader">Your total testnet reward, <b>------</b> :</div>
+        <div className="rewardContainer"> 0 $IRON</div>
+        <div className="rewardDetails">
+            <span>Hosting Node: <div> 0 $IRON</div></span>
+            <span>Sending Transactions: <div> 0 $IRON</div></span>
+            <span>Finding Bugs: <div> 0 $IRON</div></span>
+            <span>Submitting Pull Requests: <div> 0 $IRON</div></span>
+        </div>
+    </div>
+    } else {
+        const rank = props.userMetrics.pools.main.rank;
       const total_points = props.userMetrics.pools.main.points;
 
       const node_uptime = props.userMetrics.metrics.node_uptime.count;
@@ -37,7 +54,7 @@ const CustomUserComponent = (props) => {
 
       const user_total_reward = Math.round(node_uptime_reward + bugs_caught_reward + transactions_reward + pull_request_reward)
 
-
+      
       return <div className="userContainer">
           <div className="userHeader">Your total testnet reward, <b>{moniker}</b> :</div>
           <div className="rewardContainer"> {user_total_reward} $IRON</div>
@@ -48,6 +65,9 @@ const CustomUserComponent = (props) => {
               <span>Submitting Pull Requests: <div>{pull_request_reward} $IRON</div></span>
           </div>
       </div>
+    }
+
+      
 
 };
 
