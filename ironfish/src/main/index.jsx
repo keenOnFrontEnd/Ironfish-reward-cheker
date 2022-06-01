@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import axios from "axios";
 import { FetchUserData, server_metric, test_state } from "./fetchComponent";
 import CustomUserComponent from "./customUserComponent";
-import styles from "../css/main.css";
-import LogoComponent from "./logo";
 
 const IndexComponent = () => {
+
+
   const [isLoading, setIsLoading] = useState(true);
   const [userState, setUserState] = useState([]);
   const [userMetrics, setUserMetrics] = useState([]);

@@ -22,7 +22,7 @@ export const FetchUserData = async (graffiti,userStateUpdate,userPointsStateUpda
          await fetch(fetchlink).then(responce => responce.json()).then((data) => {
              userStateUpdate(data)
              FetchUserPointsForTestNet(data.id,userPointsStateUpdate)
-            }).then(()=> setTimeout(()=>{setIsLoading(false)}, 3000))
+            })
      }
      catch (error) {
         //  setUserStateError(error)
