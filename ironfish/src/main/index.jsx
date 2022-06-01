@@ -1,8 +1,8 @@
 import React, {  useEffect, useState } from "react";
 import axios from "axios";
-import { FetchUserData, server_metric, test_state } from "./fetchComponent";
+import { FetchUserData, test_state } from "./fetchComponent";
 import CustomUserComponent from "./customUserComponent";
-
+import LogoComponent from "./logo";
 const IndexComponent = () => {
 
 
@@ -53,7 +53,6 @@ if(isMobile) {
       {isLoading === false ? (
         <CustomUserComponent
           userMetrics={userMetrics}
-          server_metrics={server_metric}
           moniker={userMonikerUploaded}
         />
       ) : (

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-
+import data from '../data.json';
 
 const CustomUserComponent = (props) => {
 
     console.log(props)
     const pp1 = 210000;
-    const pp2 = 105000;
     
     const [moniker, setMoniker] = useState(props.moniker)
     useEffect(() => {
@@ -25,16 +24,16 @@ const CustomUserComponent = (props) => {
       const total_points = props.userMetrics.pools.main.points;
 
       const node_uptime = props.userMetrics.metrics.node_uptime.count;
-      const node_uptime_reward =  Math.round((props.userMetrics.metrics.node_uptime.points / props.server_metrics.pp1_total_points) * pp1)
+      const node_uptime_reward =  Math.round((props.userMetrics.metrics.node_uptime.points / data.total_points) * pp1)
 
       const bugs_caught = props.userMetrics.metrics.bugs_caught.count;
-      const bugs_caught_reward =  Math.round((props.userMetrics.metrics.bugs_caught.points / props.server_metrics.pp1_total_points) * pp1)
+      const bugs_caught_reward =  Math.round((props.userMetrics.metrics.bugs_caught.points / data.total_points) * pp1)
 
       const transactions = props.userMetrics.metrics.send_transaction.count;
-      const transactions_reward =  Math.round((props.userMetrics.metrics.send_transaction.points / props.server_metrics.pp1_total_points) * pp1)
+      const transactions_reward =  Math.round((props.userMetrics.metrics.send_transaction.points / data.total_points) * pp1)
 
       const pull_request = props.userMetrics.metrics.pull_requests_merged.count;
-      const pull_request_reward =  Math.round((props.userMetrics.metrics.pull_requests_merged.points / props.server_metrics.pp1_total_points) * pp2)
+      const pull_request_reward =  Math.round((props.userMetrics.metrics.pull_requests_merged.points / data.total_points) * pp1)
 
       const user_total_reward = Math.round(node_uptime_reward + bugs_caught_reward + transactions_reward + pull_request_reward)
 
