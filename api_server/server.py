@@ -1,8 +1,9 @@
 from fastapi import FastAPI
+from ph2_rewards import pool1
 
 app = FastAPI()
 
 
-@app.get("/total_points")
-async def total_points():
-    return {"total_points": 100000}
+@app.get("/pool1_points")
+async def pool1_points():
+    return pool1()
