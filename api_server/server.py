@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from ph2_rewards import pool1
 
+
 app = FastAPI()
 
 origins = ["*"]
@@ -17,4 +18,9 @@ app.add_middleware(
 
 @app.get("/pool1_points")
 async def pool1_points():
-    return pool1()
+    return # get_pool1_points()
+
+
+@app.get('/test')
+async def test():
+    pool1()

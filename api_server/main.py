@@ -1,4 +1,8 @@
 import uvicorn
+import sqlite3 as sql
+
+conn = sql.connect('ironfish.db')
+cursor = conn.cursor()
 
 if __name__ == "__main__":
     uvicorn.run(

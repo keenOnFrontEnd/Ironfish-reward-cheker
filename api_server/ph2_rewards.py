@@ -18,5 +18,3 @@ def pool1():
         else:
             do = False
     # print('total sum is ' + str(sum))
-    data = {"total_points": sum}
-    return data
