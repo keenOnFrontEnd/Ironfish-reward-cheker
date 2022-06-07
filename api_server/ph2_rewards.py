@@ -7,14 +7,20 @@ def pool1():
     sum = 0
 
     while do:
-        req = r.get('https://api.ironfish.network/users?before='+str(start)+'&limit=100')
-        req_json = req.json()
-        data = req_json['data']
+        res = r.get('https://api.ironfish.network/users?before='+str(start)+'&limit=100')
+        res_json = res.json()
+        data = res_json['data']
         if len(data) != 0:
+            print('starting id is ' + str(start))
             for i in range(len(data)):
                 sum += data[i]['total_points']
             start = data[0]['id']
-            # print('starting id is ' + str(start))
         else:
             do = False
-    # print('total sum is ' + str(sum))
+
+    total_points = {
+        "total_points": sum
+    }
+
+    with open('total_points.txt', 'w') as file:
+        file.write(str(total_points))

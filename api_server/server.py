@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from ph2_rewards import pool1
+import requests as r
+import json
 
 
 app = FastAPI()
@@ -16,11 +17,29 @@ app.add_middleware(
 )
 
 
+@app.get("/user_by_name/{name}")
+async def get_user(name):
+    return get_user_by_name(name)
+
+
 @app.get("/pool1_points")
 async def pool1_points():
-    return # get_pool1_points()
+    with open('total_points.txt', 'r') as file:
+        return json.loads(file.read())
 
 
-@app.get('/test')
-async def test():
-    pool1()
+def get_user_by_name(name):
+    res = r.get(f'https://api.ironfish.network/users/find?graffiti={name}&with_rank=true')
+    res_json = res.json()
+    id = res_json['id']
+
+    res = r.get(f'https://api.ironfish.network/users/{id}/metrics?granularity=lifetime')
+    res_json = res.json()
+    data = {
+        "pool1_total_points": res_json['pools']['main']['points'],
+        "bug_caught": res_json['metrics']['bugs_caught']['points'],
+        "pull_requests_merged": res_json['metrics']['pull_requests_merged']['points'],
+        "node_uptime": res_json['metrics']['node_uptime']['points'],
+        "send_transaction": res_json['metrics']['send_transaction']['points']
+    }
+    return data

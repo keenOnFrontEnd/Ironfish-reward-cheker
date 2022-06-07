@@ -1,10 +1,7 @@
 import uvicorn
-import sqlite3 as sql
 
-conn = sql.connect('ironfish.db')
-cursor = conn.cursor()
 
-if __name__ == "__main__":
+def server():
     uvicorn.run(
         "server:app",
         host="localhost",
@@ -12,3 +9,11 @@ if __name__ == "__main__":
         log_level="info",
         reload=True
     )
+
+
+def main():
+    server()
+
+
+if __name__ == "__main__":
+    main()
