@@ -30,16 +30,19 @@ async def pool1_points():
 
 def get_user_by_name(name):
     res = r.get(f'https://api.ironfish.network/users/find?graffiti={name}&with_rank=true')
-    res_json = res.json()
-    id = res_json['id']
+    if res.status_code == 404:
+        return "error"
+    else:
+        res_json = res.json()
+        id = res_json['id']
 
-    res = r.get(f'https://api.ironfish.network/users/{id}/metrics?granularity=lifetime')
-    res_json = res.json()
-    data = {
-        "pool1_total_points": res_json['pools']['main']['points'],
-        "bug_caught": res_json['metrics']['bugs_caught']['points'],
-        "pull_requests_merged": res_json['metrics']['pull_requests_merged']['points'],
-        "node_uptime": res_json['metrics']['node_uptime']['points'],
-        "send_transaction": res_json['metrics']['send_transaction']['points']
-    }
-    return data
+        res = r.get(f'https://api.ironfish.network/users/{id}/metrics?granularity=lifetime')
+        res_json = res.json()
+        data = {
+            "pool1_total_points": res_json['pools']['main']['points'],
+            "bug_caught": res_json['metrics']['bugs_caught']['points'],
+            "pull_requests_merged": res_json['metrics']['pull_requests_merged']['points'],
+            "node_uptime": res_json['metrics']['node_uptime']['points'],
+            "send_transaction": res_json['metrics']['send_transaction']['points']
+        }
+        return data
