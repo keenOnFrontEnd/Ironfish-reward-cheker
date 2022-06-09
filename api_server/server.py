@@ -25,7 +25,7 @@ async def get_user(name):
 @app.get("/pool1_points")
 async def pool1_points():
     with open('total_points.txt', 'r') as file:
-        return json.loads(file.read())
+        return file.read()
 
 
 def get_user_by_name(name):
