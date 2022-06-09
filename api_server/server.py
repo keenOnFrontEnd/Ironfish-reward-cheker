@@ -1,3 +1,4 @@
+import ast
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import requests as r
@@ -24,7 +25,7 @@ async def get_user(name):
 @app.get("/pool1_points")
 async def pool1_points():
     with open('total_points.txt', 'r') as file:
-        return file.read()
+        return ast.literal_eval(file.read())
 
 
 def get_user_by_name(name):
