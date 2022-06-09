@@ -24,3 +24,6 @@ def pool1():
 
     with open('total_points.txt', 'w') as file:
         file.write(str(total_points))
+
+
+pool1()
