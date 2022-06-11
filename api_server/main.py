@@ -7,7 +7,9 @@ def server():
         host="localhost",
         port=8080,
         log_level="info",
-        reload=True
+        reload=True,
+        ssl_certfile="/etc/letsencrypt/live/ironfish-rewards-checker.ru/fullchain.pem",
+        ssl_keyfile="/etc/letsencrypt/live/ironfish-rewards-checker.ru/privkey.pem"
     )
 
 
