@@ -1,29 +1,61 @@
 import React, { useEffect, useState } from "react";
-import { FetchUserData, test_state } from "./fetchComponent";
+import { FetchTotalPoints, FetchUserData } from "./fetchComponent";
 import CustomUserComponent from "./customUserComponent";
 import LogoComponent from "./logo";
+
 const IndexComponent = () => {
+
   const [isLoading, setIsLoading] = useState(true);
-  const [userState, setUserState] = useState([]);
   const [userMetrics, setUserMetrics] = useState([]);
+  const [totalPoints, setTotalPoints] = useState(0);
+  const [totalPoints2, setTotalPoints2] = useState(0)
   const [userMoniker, setUserMoniker] = useState();
   const [userMonikerUploaded, setUserMonikerUploaded] = useState();
+  const [error, setError] = useState([]);
+  
+
+  const [errorCatched, setErrorCatched] = useState(false);
+
+
   const isMobile = window.matchMedia(
     "only screen and (max-width: 1026px)"
   ).matches;
+
   const [isSearching, setIsSearching] = useState(false);
 
   const search = () => {
-    FetchUserData(userMoniker, setUserState, setUserMetrics, setIsSearching);
+    setIsSearching(true)
+    setUserMetrics([]);
+    FetchTotalPoints(setTotalPoints,setTotalPoints2)
+    FetchUserData(
+      userMoniker,
+      setUserMetrics,
+      setTotalPoints,
+      setError
+    )
     setUserMonikerUploaded(userMoniker);
+    setErrorCatched(false);
+    setError([]);
   };
 
   useEffect(() => {
-    if (userMetrics.user_id || userMetrics.error) {
-      setIsLoading(false);
+    if (userMetrics.metrics) {
+      setIsSearching(false);
     }
-  }, [userMetrics]);
+  }, [userMetrics])
 
+  useEffect(() => {
+    if(userMetrics.metrics) {
+      setIsLoading(false)
+    }
+  }, [userMetrics])
+
+  useEffect(() => {
+    if (error === "error") {
+      setErrorCatched(true);
+    }
+  }, [error]);
+  
   if (isMobile) {
     return (
       <div className="desctopSupport">
@@ -31,28 +63,38 @@ const IndexComponent = () => {
       </div>
     );
   }
-
   return (
     <div className="container">
       <div className="mainText">IronFish Rewards Checker</div>
 
-      <div className="searchContainer">
+      <div
+        className={errorCatched ? "searchContainerError" : "searchContainer"}
+      >
         <input
           placeholder="To calculate rewards, put graffiti here"
           onChange={(e) => setUserMoniker(e.target.value)}
           type="search"
         />
-        <button onClick={() => search()}>Search</button>
+        <button type="submit" onClick={() => search()}>
+          Search
+        </button>
       </div>
 
-      <CustomUserComponent
-        userMetrics={userMetrics}
-        moniker={userMonikerUploaded}
-        isLoading={isLoading}
-        isSearching={isSearching}
-      />
+      {isLoading ? (
+        <LogoComponent className={isLoading === true ? "" : "logoFadeOut"} />
+      ) : (
+        <CustomUserComponent
+          errorCatched={errorCatched}
+          totalPoints={totalPoints}
+          totalPoints2={totalPoints2}
+          userMetrics={userMetrics.metrics}
+          moniker={userMonikerUploaded}
+          isSearching={isSearching}
+          setIsSearching={setIsSearching}
+        />
+      )}
     </div>
   );
 };
 
-export default IndexComponent;
+export default IndexComponent

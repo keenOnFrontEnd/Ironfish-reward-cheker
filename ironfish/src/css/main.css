@@ -83,6 +83,45 @@ body {
     color: #087E22;
 }
 
+.searchContainerError {
+    border: 1px double red;
+    width: 47%;
+    height: 67px;
+    background-color: #D9D9D9;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 8px;
+    margin-bottom: 30px;
+}
+.searchContainerError>button {
+    background-color: #D9D9D9;
+    border: 1px solid #23C533;
+    border-radius: 10px;
+    height: 60px;
+    width: 17%;
+    font-size: 22px;
+    color: #087E22;
+}
+.searchContainerError>input {
+    width: 80%;
+    height: 50px;
+    outline: none;
+    border: none;
+    font-size: 22px;
+    border-radius: 1px;
+    padding-left: 10px;
+}
+
+
 
 .userContainer {
     width: 65%;

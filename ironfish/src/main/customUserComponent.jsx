@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import data from '../data.json';
-import LogoComponent from "./logo";
 
 const CustomUserComponent = (props) => {
-    
+ 
     const pp1 = 210000;
-    
+    const pp2 = 105000;
+
     const [moniker, setMoniker] = useState(props.moniker)
 
     useEffect(() => {
@@ -14,15 +13,11 @@ const CustomUserComponent = (props) => {
         }
     },[props.moniker])
 
-    if(props.userMetrics.error) {
+    if(props.errorCatched === true) {
         return <div className="userContainer errorClass">
            Searching failed <br />
             Check Your Moniker
         </div>
-    }
-
-    if (props.isLoading) {
-        return <LogoComponent className={props.isLoading === true ? ('') : ('logoFadeOut')} />
     }
 
     if(props.isSearching) {
@@ -37,20 +32,15 @@ const CustomUserComponent = (props) => {
         </div>
     </div>
     } else {
-        const rank = props.userMetrics.pools.main.rank;
-      const total_points = props.userMetrics.pools.main.points;
 
-      const node_uptime = props.userMetrics.metrics.node_uptime.count;
-      const node_uptime_reward =  Math.round((props.userMetrics.metrics.node_uptime.points / data.total_points) * pp1)
 
-      const bugs_caught = props.userMetrics.metrics.bugs_caught.count;
-      const bugs_caught_reward =  Math.round((props.userMetrics.metrics.bugs_caught.points / data.total_points) * pp1)
+        const node_uptime_reward =  Math.round((props.userMetrics.node_uptime.points / props.totalPoints) * pp1)
+        
+      const bugs_caught_reward =  Math.round((props.userMetrics.bugs_caught.points / props.totalPoints) * pp1)
 
-      const transactions = props.userMetrics.metrics.send_transaction.count;
-      const transactions_reward =  Math.round((props.userMetrics.metrics.send_transaction.points / data.total_points) * pp1)
+      const transactions_reward =  Math.round((props.userMetrics.send_transaction.points / props.totalPoints) * pp1)
 
-      const pull_request = props.userMetrics.metrics.pull_requests_merged.count;
-      const pull_request_reward =  Math.round((props.userMetrics.metrics.pull_requests_merged.points / data.total_points) * pp1)
+      const pull_request_reward =  Math.round((props.userMetrics.pull_requests_merged.points / props.totalPoints2) * pp2)
 
       const user_total_reward = Math.round(node_uptime_reward + bugs_caught_reward + transactions_reward + pull_request_reward)
 
